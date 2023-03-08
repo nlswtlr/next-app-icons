@@ -1,4 +1,5 @@
 import "@/styles/globals.css";
+import "@/components/Metadata/prism.css";
 
 export const metadata = {
   title: "Next.js App Icons Generator",
