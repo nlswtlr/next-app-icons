@@ -7,7 +7,7 @@ export default async function upload(file: File) {
 
     formData.append("icon", file);
 
-    const res = await fetch(`${process.env.API_BASE_PATH}/generate`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_PATH}/generate`, {
       method: "POST",
       body: formData,
       headers: {
