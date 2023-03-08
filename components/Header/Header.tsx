@@ -17,7 +17,10 @@ const Header = ({}: HeaderProps) => (
       </a>{" "}
       output.
     </p>
-    <span className="hidden" data-file-hash={jwt.sign({}, process.env.JWT_SECRET)} />
+    <span
+      className="hidden"
+      data-file-hash={jwt.sign(process.env.SECRET_PAYLOAD || "", process.env.JWT_SECRET || "")}
+    />
   </>
 );
 

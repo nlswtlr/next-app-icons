@@ -1,9 +1,9 @@
+import type { Metadata } from "next";
+
 export default async function upload(file: File) {
   try {
     const tokenEl = document.querySelector<HTMLSpanElement>("[data-file-hash]");
     const formData = new FormData();
-
-    console.log(tokenEl?.dataset.fileHash);
 
     formData.append("icon", file);
 
@@ -14,7 +14,7 @@ export default async function upload(file: File) {
         "X-Auth": tokenEl?.dataset.fileHash || "",
       },
     });
-    const data = await res.json();
+    const data: Promise<{ success: boolean; file: string; metadata: Metadata }> = await res.json();
 
     console.log(data);
   } catch (e) {}
