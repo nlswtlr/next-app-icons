@@ -18,6 +18,7 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
     creator: "@nlswtlr",
+    images: ["https://next-app-icons.vercel.app/assets/images/share/og-share.jpg"],
   },
 };
 
