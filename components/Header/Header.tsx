@@ -11,7 +11,7 @@ const Header = ({}: HeaderProps) => (
         className="underline decoration-1"
         target="_blank"
         rel="noopener"
-        href="https://beta.nextjs.org/docs/api-reference/metadata"
+        href="https://beta.nextjs.org/docs/api-reference/metadata#icons"
       >
         metadata
       </a>{" "}

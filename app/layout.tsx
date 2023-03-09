@@ -1,3 +1,5 @@
+import PlausibleProvider from "next-plausible";
+
 import "@/styles/globals.css";
 import "@/components/Metadata/prism.css";
 
@@ -22,6 +24,9 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
+      <head>
+        <PlausibleProvider domain="next-app-icons.vercel.app" />
+      </head>
       <body className="bg-primary">{children}</body>
     </html>
   );
