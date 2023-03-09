@@ -19,7 +19,9 @@ const Header = ({}: HeaderProps) => (
     </h2>
     <span
       className="hidden"
-      data-file-hash={jwt.sign(process.env.SECRET_PAYLOAD || "", process.env.JWT_SECRET || "")}
+      data-file-hash={jwt.sign({ data: process.env.SECRET_PAYLOAD } || "", process.env.JWT_SECRET || "", {
+        expiresIn: 10,
+      })}
     />
   </>
 );
