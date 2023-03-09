@@ -9,7 +9,7 @@ export default function Home() {
       <main className="max-w-xl mx-auto mt-8 px-4 text-white">
         <Header />
         <FileUpload />
-        <p className="text-center text-xs text-slate-700">
+        <p className="mt-10 mb-6 text-center text-xs text-slate-700">
           Robot by Adrien Coquet from{" "}
           <a href="https://thenounproject.com/browse/icons/term/robot/" target="_blank" title="Robot Icons">
             Noun Project

@@ -4,7 +4,7 @@ type HeaderProps = {};
 
 const Header = ({}: HeaderProps) => (
   <>
-    <h1 className="text-xl text-center mb-4">Next.js App Icons Generator</h1>
+    <h1 className="text-xl text-center mb-4">Next.js App Icon Generator</h1>
     <h2 className="text-sm text-center">
       Generate favicons/app icons with auto generated{" "}
       <a
@@ -20,7 +20,7 @@ const Header = ({}: HeaderProps) => (
     <span
       className="hidden"
       data-file-hash={jwt.sign({ data: process.env.SECRET_PAYLOAD } || "", process.env.JWT_SECRET || "", {
-        expiresIn: 10,
+        expiresIn: 10 * 60,
       })}
     />
   </>

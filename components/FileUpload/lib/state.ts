@@ -1,19 +1,17 @@
 import type { Metadata } from "next";
 
 export type State = {
-  locked: boolean;
   dragOver: boolean;
   metadata: Metadata | null;
   filePath: string;
+  message: {
+    type: "success" | "error";
+    text: string;
+  };
 };
 
 type SetDragOverAction = {
   type: "SET_DRAG_OVER";
-  payload: boolean;
-};
-
-type SetLockedAction = {
-  type: "SET_LOCKED";
   payload: boolean;
 };
 
@@ -27,25 +25,33 @@ type SetMetadataAction = {
   payload: Metadata;
 };
 
-export type ReducerActions = SetDragOverAction | SetLockedAction | SetFilePathAction | SetMetadataAction;
+type SetMessageAction = {
+  type: "SET_MESSAGE";
+  payload: State["message"];
+};
+
+export type ReducerActions = SetDragOverAction | SetFilePathAction | SetMetadataAction | SetMessageAction;
 
 export const initialState: State = {
-  locked: false,
   dragOver: false,
   metadata: null,
   filePath: "",
+  message: {
+    type: "error",
+    text: "",
+  },
 };
 
 export const reducer = (state: State, action: ReducerActions) => {
   switch (action.type) {
     case "SET_DRAG_OVER":
       return { ...state, dragOver: action.payload };
-    case "SET_LOCKED":
-      return { ...state, locked: action.payload };
     case "SET_FILE_PATH":
       return { ...state, filePath: action.payload };
     case "SET_METADATA":
       return { ...state, metadata: action.payload };
+    case "SET_MESSAGE":
+      return { ...state, message: { ...action.payload } };
     default:
       return state;
   }

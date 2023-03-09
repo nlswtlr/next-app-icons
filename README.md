@@ -1,1 +1,1 @@
-# Next App Icons Generator
+# Next App Icon Generator
