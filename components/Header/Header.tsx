@@ -15,7 +15,9 @@ const Header = ({}: HeaderProps) => (
       >
         metadata
       </a>{" "}
-      output.
+      output
+      <br />
+      for your Next.js apps v13.2 and newer.
     </h2>
     <span
       className="hidden"
