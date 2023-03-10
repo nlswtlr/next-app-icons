@@ -3,10 +3,17 @@ import PlausibleProvider from "next-plausible";
 import "@/styles/globals.css";
 import "@/components/Metadata/prism.css";
 
-export const metadata = {
+const generics = {
   title: "Next.js App Icon Generator",
   description: "Generate favicons/app icons with auto generated metadata output.",
+};
+
+export const metadata = {
+  title: generics.title,
+  description: generics.description,
   openGraph: {
+    title: generics.title,
+    description: generics.description,
     images: [
       {
         url: "https://next-app-icons.vercel.app/assets/images/share/og-share.jpg",
@@ -18,7 +25,7 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
     creator: "@nlswtlr",
-    images: ["https://next-app-icons.vercel.app/assets/images/share/og-share.jpg"],
+    images: [{ url: "https://next-app-icons.vercel.app/assets/images/share/og-share.jpg", width: 1200, height: 630 }],
   },
 };
 
