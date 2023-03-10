@@ -5,7 +5,7 @@ import "@/components/Metadata/prism.css";
 
 const generics = {
   title: "Next.js App Icon Generator",
-  description: "Generate favicons/app icons with auto generated metadata output.",
+  description: "Generate favicons/app icons with auto generated metadata output for your Next.js apps v13.2 and newer.",
 };
 
 export const metadata = {
@@ -21,6 +21,7 @@ export const metadata = {
         height: 630,
       },
     ],
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",
