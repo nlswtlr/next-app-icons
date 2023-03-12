@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 export type State = {
   dragOver: boolean;
+  uploading: boolean;
   metadata: Metadata | null;
   filePath: string;
   message: {
@@ -30,10 +31,21 @@ type SetMessageAction = {
   payload: State["message"];
 };
 
-export type ReducerActions = SetDragOverAction | SetFilePathAction | SetMetadataAction | SetMessageAction;
+type SetUploadStateAction = {
+  type: "SET_UPLOAD_STATE";
+  payload: boolean;
+};
+
+export type ReducerActions =
+  | SetDragOverAction
+  | SetFilePathAction
+  | SetMetadataAction
+  | SetMessageAction
+  | SetUploadStateAction;
 
 export const initialState: State = {
   dragOver: false,
+  uploading: false,
   metadata: null,
   filePath: "",
   message: {
@@ -52,6 +64,8 @@ export const reducer = (state: State, action: ReducerActions) => {
       return { ...state, metadata: action.payload };
     case "SET_MESSAGE":
       return { ...state, message: { ...action.payload } };
+    case "SET_UPLOAD_STATE":
+      return { ...state, uploading: action.payload };
     default:
       return state;
   }

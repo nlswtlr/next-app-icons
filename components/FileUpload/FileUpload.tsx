@@ -6,27 +6,29 @@ import Metadata from "@/components/Metadata";
 import Message from "@/components/Message";
 import Button from "@/components/Button";
 import upload from "./lib/upload";
-import { reducer, initialState, State, ReducerActions } from "./lib/state";
+import { reducer, initialState, State, ReducerActions } from "./lib/reducer";
 
 type FileUploadProps = {};
 
 const FileUpload = ({}: FileUploadProps) => {
   const [state, dispatch] = useReducer<Reducer<State, ReducerActions>>(reducer, initialState);
+  const { dragOver, metadata, message, filePath, uploading } = state;
 
   const handleDrop = (evt: any) => {
     evt.preventDefault();
-    upload(evt.dataTransfer.files[0], dispatch);
+    if (!uploading) {
+      upload(evt.dataTransfer.files[0], dispatch);
+    }
   };
-  const handleFileChange = (evt: any) => upload(evt.target.files[0], dispatch);
+  const handleFileChange = (evt: any) => {
+    if (!uploading) {
+      upload(evt.target.files[0], dispatch);
+    }
+  };
 
   const handleDragEnter = () => dispatch({ type: "SET_DRAG_OVER", payload: true });
   const handleDragLeave = () => dispatch({ type: "SET_DRAG_OVER", payload: false });
-
-  const handleDragOver = (evt: any) => {
-    evt.preventDefault();
-  };
-
-  const { dragOver, metadata, message, filePath } = state;
+  const handleDragOver = (evt: any) => evt.preventDefault();
 
   return metadata ? (
     <>
@@ -49,7 +51,7 @@ const FileUpload = ({}: FileUploadProps) => {
       >
         <div className="flex flex-col items-center justify-center">
           <svg
-            className="select-none"
+            className={`pointer-events-none ${uploading ? "opacity-30" : ""}`}
             xmlns="http://www.w3.org/2000/svg"
             width="50"
             height="50"
@@ -65,11 +67,34 @@ const FileUpload = ({}: FileUploadProps) => {
               d="M743.787 699.827l-41.068-41.126 32.781-14.057h.005c4.344-1.864 7-6.312 6.578-11.026a10.933 10.933 0 00-8.432-9.682l-88.74-20.416V328.386a40.15 40.15 0 00-11.765-28.338 40.149 40.149 0 00-28.339-11.766h-28.438V11.922A10.936 10.936 0 00565.432.985H11.272C5.23.985.335 5.88.335 11.922v525c0 6.042 4.895 10.938 10.937 10.938h174.267v57.604a40.141 40.141 0 0011.765 28.338 40.147 40.147 0 0028.339 11.766h377.2l20.416 88.74a10.933 10.933 0 009.682 8.432 10.936 10.936 0 0011.026-6.578l14.074-32.787 41.125 41.068a10.895 10.895 0 007.729 3.209c2.901 0 5.682-1.151 7.729-3.209l29.167-29.166a10.915 10.915 0 003.203-7.73c0-2.901-1.151-5.682-3.203-7.729l-.004.009zM554.493 22.867v51.041H22.2V22.867h532.293zm-368.96 305.52v123.229h-14.38c-6.041 0-10.937 4.896-10.937 10.938 0 6.041 4.896 10.937 10.937 10.937h14.38v52.5H22.2V95.778h532.293v192.506h-65.958c.218-.859.333-1.739.333-2.625v-50.458c0-6.042-4.896-10.938-10.937-10.938-6.042 0-10.938 4.896-10.938 10.938v50.458c0 .886.115 1.766.333 2.625H225.633a40.149 40.149 0 00-28.339 11.766 40.144 40.144 0 00-11.765 28.339l.004-.002zm40.104 295.306c-10.062-.015-18.213-8.166-18.229-18.229v-277.08c.016-10.063 8.167-18.213 18.229-18.229h379.174c10.062.015 18.213 8.166 18.229 18.229v270.067l-15.765-3.646a10.949 10.949 0 00-10.193 2.932 10.949 10.949 0 00-2.932 10.193l3.646 15.765-372.159-.002zm481.254 97.547l-44.771-44.755a10.92 10.92 0 00-7.729-3.208 9.942 9.942 0 00-2.073.203 10.939 10.939 0 00-7.974 6.432l-7.292 16.875-17.703-76.724 76.724 17.703-16.874 7.292a10.922 10.922 0 00-3.427 17.776l44.754 44.77-13.635 13.636z"
             />
           </svg>
-          <p className="mt-2 text-xs text-slate-400 text-center">
+          <p className={`mt-2 text-xs text-slate-400 text-center pointer-events-none ${uploading ? "opacity-30" : ""}`}>
             drop your favicon/app icon here
             <br />
             (optimal: 512x512px; max. 1MB; png,jpg or gif)
           </p>
+          {uploading && (
+            <div className="grid grid-cols-[auto_16px] gap-x-2 items-center mt-4 w-full">
+              <div className=" bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                <div className="bg-blue-600 h-2.5 rounded-full animate-progress" />
+              </div>
+              <svg
+                aria-hidden="true"
+                className="inline w-4 h-4 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                viewBox="0 0 100 101"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                  fill="currentColor"
+                />
+                <path
+                  d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                  fill="currentFill"
+                />
+              </svg>
+            </div>
+          )}
         </div>
         <input
           className="hidden"

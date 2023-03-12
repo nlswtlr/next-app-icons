@@ -1,7 +1,7 @@
 import { Dispatch } from "react";
 import type { Metadata } from "next";
 
-import { ReducerActions } from "./state";
+import { ReducerActions } from "./reducer";
 
 type SuccessResponse = { success: boolean; file: string; metadata: Metadata };
 type ErrorResponse = { errorCode: string };
@@ -17,6 +17,7 @@ const errorCodes: Record<string, string> = {
 export default async function upload(iconFile: File, dispatch: Dispatch<ReducerActions>) {
   try {
     dispatch({ type: "SET_MESSAGE", payload: { type: "error", text: "" } });
+    dispatch({ type: "SET_UPLOAD_STATE", payload: true });
 
     const tokenEl = document.querySelector<HTMLSpanElement>("[data-file-hash]");
     const formData = new FormData();
@@ -32,15 +33,17 @@ export default async function upload(iconFile: File, dispatch: Dispatch<ReducerA
     });
     const respData: SuccessResponse | ErrorResponse = await res.json();
 
+    dispatch({ type: "SET_UPLOAD_STATE", payload: false });
+
     if ("errorCode" in respData) {
       const errorMsg = errorCodes[respData.errorCode];
-
       return dispatch({ type: "SET_MESSAGE", payload: { type: "error", text: errorMsg || errorCodes["001"] } });
     }
 
     dispatch({ type: "SET_METADATA", payload: respData.metadata });
     dispatch({ type: "SET_FILE_PATH", payload: respData.file });
   } catch (e) {
+    dispatch({ type: "SET_UPLOAD_STATE", payload: false });
     dispatch({ type: "SET_MESSAGE", payload: { type: "error", text: "Ok, something broke in the frontend here." } });
   }
 }
