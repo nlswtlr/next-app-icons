@@ -12,5 +12,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(200).json(data);
     }
     res.status(400).end({ error: "error while running cron" });
-  } catch (err: any) {}
+  } catch (err: any) {
+    res.status(500).end({ error: err.message });
+  }
 }
