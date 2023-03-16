@@ -1,12 +1,11 @@
 "use client";
 
 import { useReducer, Reducer } from "react";
-import { useForm, Controller } from "react-hook-form";
 
+import Form from "@/modules/Form";
 import Metadata from "@/components/Metadata";
 import Message from "@/components/Message";
 import Button from "@/components/Button";
-import Input from "@/components/Input";
 
 import upload from "./lib/upload";
 import { reducer, initialState, State, ReducerActions } from "./lib/reducer";
@@ -16,11 +15,6 @@ import DragDropIcon from "./components/DragDropIcon";
 type FileUploadProps = {};
 
 const FileUpload = ({}: FileUploadProps) => {
-  const { handleSubmit, control } = useForm({
-    defaultValues: {
-      basepath: "",
-    },
-  });
   const [state, dispatch] = useReducer<Reducer<State, ReducerActions>>(reducer, initialState);
   const { dragOver, metadata, message, filePath, uploading } = state;
 
@@ -83,9 +77,7 @@ const FileUpload = ({}: FileUploadProps) => {
           accept="image/png, image/jpg, image/gif"
         />
       </label>
-      <form>
-        <Controller name="basepath" control={control} render={({ field }) => <Input {...field} />} />
-      </form>
+      <Form />
       {message.text ? <Message type={message.type}>{message.text}</Message> : null}
     </>
   );

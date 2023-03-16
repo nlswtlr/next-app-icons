@@ -1,7 +1,7 @@
 import Script from "next/script";
 
 import Header from "@/components/Header";
-import FileUpload from "@/components/FileUpload";
+import FileUpload from "@/modules/FileUpload";
 
 const Home = async () => (
   <>
