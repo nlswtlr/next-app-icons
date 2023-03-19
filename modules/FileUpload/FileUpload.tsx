@@ -1,8 +1,9 @@
 "use client";
 
-import { useReducer, Reducer } from "react";
+import { useReducer, Reducer, useRef } from "react";
+import { useForm } from "react-hook-form";
 
-import Form from "@/modules/Form";
+import Form, { defaultValues } from "@/modules/Form";
 import Metadata from "@/components/Metadata";
 import Message from "@/components/Message";
 import Button from "@/components/Button";
@@ -17,16 +18,19 @@ type FileUploadProps = {};
 const FileUpload = ({}: FileUploadProps) => {
   const [state, dispatch] = useReducer<Reducer<State, ReducerActions>>(reducer, initialState);
   const { dragOver, metadata, message, filePath, uploading } = state;
+  const { getValues, control } = useForm({
+    defaultValues,
+  });
 
   const handleDrop = (evt: any) => {
     evt.preventDefault();
     if (!uploading) {
-      upload(evt.dataTransfer.files[0], dispatch);
+      upload(evt.dataTransfer.files[0], getValues(), dispatch);
     }
   };
   const handleFileChange = (evt: any) => {
     if (!uploading) {
-      upload(evt.target.files[0], dispatch);
+      upload(evt.target.files[0], getValues(), dispatch);
     }
   };
 
@@ -77,7 +81,7 @@ const FileUpload = ({}: FileUploadProps) => {
           accept="image/png, image/jpg, image/gif"
         />
       </label>
-      <Form />
+      <Form control={control} />
       {message.text ? <Message type={message.type}>{message.text}</Message> : null}
     </>
   );

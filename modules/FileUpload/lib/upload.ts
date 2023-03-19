@@ -2,6 +2,7 @@ import { Dispatch } from "react";
 import type { Metadata } from "next";
 
 import { ReducerActions } from "./reducer";
+import { defaultValues } from "@/modules/Form";
 
 type SuccessResponse = { success: boolean; file: string; metadata: Metadata };
 type ErrorResponse = { errorCode: string };
@@ -14,7 +15,11 @@ const errorCodes: Record<string, string> = {
   "006": "Please upload only images smaller than 1MB.",
 };
 
-export default async function upload(iconFile: File, dispatch: Dispatch<ReducerActions>) {
+export default async function upload(
+  iconFile: File,
+  formValues: typeof defaultValues,
+  dispatch: Dispatch<ReducerActions>
+) {
   try {
     dispatch({ type: "SET_MESSAGE", payload: { type: "error", text: "" } });
     dispatch({ type: "SET_UPLOAD_STATE", payload: true });
@@ -23,6 +28,7 @@ export default async function upload(iconFile: File, dispatch: Dispatch<ReducerA
     const formData = new FormData();
 
     formData.append("icon", iconFile);
+    formData.append("formData", JSON.stringify(formValues));
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_PATH}/generate`, {
       method: "POST",
