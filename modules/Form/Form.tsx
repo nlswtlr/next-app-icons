@@ -24,7 +24,7 @@ const Form = ({ control }: FormProps) => {
         </Button>
       </div>
       {open && (
-        <form className="w-5/6 mx-auto">
+        <form className="w-5/6 mx-auto mb-4">
           <Controller
             name="sitename"
             control={control}

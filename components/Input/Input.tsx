@@ -12,8 +12,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   { placeholder, hint, className, error, ...props },
   ref
 ) {
-  console.log({ ...props });
-
   return (
     <div className={className}>
       <input
