@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
-import type { Metadata } from "next";
+import { useEffect } from 'react';
+import type { Metadata } from 'next';
 
-import Button from "@/components/Button";
+import Button from '@/components/Button';
 
 type MetadataProps = {
   json: Metadata | null;
@@ -27,8 +27,7 @@ const Metadata = ({ json }: MetadataProps) => {
       </pre>
       <Button
         className="absolute bottom-2 right-2 px-4 py-1 mt-2 text-xs"
-        onClick={() => navigator.clipboard.writeText(data)}
-      >
+        onClick={() => navigator.clipboard.writeText(data)}>
         copy
       </Button>
     </div>

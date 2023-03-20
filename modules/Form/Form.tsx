@@ -1,16 +1,16 @@
 // import { useState } from "react";
-import { Controller, type Control } from "react-hook-form";
+import { Controller, type Control } from 'react-hook-form';
 
 // import Button from "@/components/Button";
-import Input from "@/components/Input";
+import Input from '@/components/Input';
 
 type FormProps = {
   control: Control<typeof defaultValues>;
 };
 
 export const defaultValues = {
-  basepath: "",
-  sitename: "",
+  basepath: '',
+  sitename: '',
 };
 
 const Form = ({ control }: FormProps) => {

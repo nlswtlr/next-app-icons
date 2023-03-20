@@ -1,22 +1,25 @@
-"use client";
+'use client';
 
-import { useReducer, Reducer } from "react";
-import { useForm } from "react-hook-form";
+import { useReducer, Reducer } from 'react';
+import { useForm } from 'react-hook-form';
 
-import Form, { defaultValues } from "@/modules/Form";
-import Metadata from "@/components/Metadata";
-import Message from "@/components/Message";
-import Button from "@/components/Button";
+import Form, { defaultValues } from '@/modules/Form';
+import Metadata from '@/components/Metadata';
+import Message from '@/components/Message';
+import Button from '@/components/Button';
 
-import upload from "./lib/upload";
-import { reducer, initialState, State, ReducerActions } from "./lib/reducer";
-import Spinner from "./components/Spinner";
-import DragDropIcon from "./components/DragDropIcon";
+import upload from './lib/upload';
+import { reducer, initialState, State, ReducerActions } from './lib/reducer';
+import Spinner from './components/Spinner';
+import DragDropIcon from './components/DragDropIcon';
 
 type FileUploadProps = {};
 
 const FileUpload = ({}: FileUploadProps) => {
-  const [state, dispatch] = useReducer<Reducer<State, ReducerActions>>(reducer, initialState);
+  const [state, dispatch] = useReducer<Reducer<State, ReducerActions>>(
+    reducer,
+    initialState
+  );
   const { dragOver, metadata, message, filePath, uploading } = state;
   const { getValues, control } = useForm({
     defaultValues,
@@ -34,8 +37,10 @@ const FileUpload = ({}: FileUploadProps) => {
     }
   };
 
-  const handleDragEnter = () => dispatch({ type: "SET_DRAG_OVER", payload: true });
-  const handleDragLeave = () => dispatch({ type: "SET_DRAG_OVER", payload: false });
+  const handleDragEnter = () =>
+    dispatch({ type: 'SET_DRAG_OVER', payload: true });
+  const handleDragLeave = () =>
+    dispatch({ type: 'SET_DRAG_OVER', payload: false });
   const handleDragOver = (evt: any) => evt.preventDefault();
 
   return metadata ? (
@@ -49,17 +54,19 @@ const FileUpload = ({}: FileUploadProps) => {
     <>
       <label
         className={`flex justify-center items-center w-full mt-10 mb-8 p-6 border ${
-          dragOver ? "border-solid" : "border-dashed"
+          dragOver ? 'border-solid' : 'border-dashed'
         } rounded-md ease-in-out transition-boder duration-300`}
         onDragEnter={handleDragEnter}
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
-        htmlFor="icon"
-      >
+        htmlFor="icon">
         <div className="flex flex-col items-center justify-center">
           <DragDropIcon uploading={uploading} />
-          <p className={`mt-2 text-xs text-slate-400 text-center pointer-events-none ${uploading ? "opacity-30" : ""}`}>
+          <p
+            className={`mt-2 text-xs text-slate-400 text-center pointer-events-none ${
+              uploading ? 'opacity-30' : ''
+            }`}>
             drop your favicon/app icon here
             <br />
             (optimal: 512x512px; max. 1MB; png,jpg or gif)
@@ -82,7 +89,9 @@ const FileUpload = ({}: FileUploadProps) => {
         />
       </label>
       <Form control={control} />
-      {message.text ? <Message type={message.type}>{message.text}</Message> : null}
+      {message.text ? (
+        <Message type={message.type}>{message.text}</Message>
+      ) : null}
     </>
   );
 };

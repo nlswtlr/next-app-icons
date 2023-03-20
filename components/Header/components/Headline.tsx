@@ -1,20 +1,18 @@
-"use client";
+'use client';
 
 const Headline = () => (
   <h1
     className="text-xl text-center mb-6 cursor-pointer"
     onClick={() => {
-      window.location.href = "/";
-    }}
-  >
+      window.location.href = '/';
+    }}>
     <svg
       className="inline-block mr-2 -rotate-3"
       width="100"
       height="31"
       viewBox="0 0 534 167"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+      xmlns="http://www.w3.org/2000/svg">
       <rect width="533.961" height="167" rx="20" fill="white" />
       <g clipPath="url(#clip0_23_7)">
         <path
@@ -32,7 +30,12 @@ const Headline = () => (
       </g>
       <defs>
         <clipPath id="clip0_23_7">
-          <rect width="432.882" height="87.8947" fill="white" transform="translate(50.5395 39.5526)" />
+          <rect
+            width="432.882"
+            height="87.8947"
+            fill="white"
+            transform="translate(50.5395 39.5526)"
+          />
         </clipPath>
       </defs>
     </svg>

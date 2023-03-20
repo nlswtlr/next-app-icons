@@ -1,7 +1,7 @@
-import Script from "next/script";
+import Script from 'next/script';
 
-import Header from "@/components/Header";
-import FileUpload from "@/modules/FileUpload";
+import Header from '@/components/Header';
+import FileUpload from '@/modules/FileUpload';
 
 const Home = async () => (
   <>
@@ -10,13 +10,19 @@ const Home = async () => (
       <Header />
       <FileUpload />
       <p className="mt-10 mb-6 text-center text-xs text-slate-700">
-        Robot by Adrien Coquet from{" "}
-        <a href="https://thenounproject.com/browse/icons/term/robot/" target="_blank" title="Robot Icons">
+        Robot by Adrien Coquet from{' '}
+        <a
+          href="https://thenounproject.com/browse/icons/term/robot/"
+          target="_blank"
+          title="Robot Icons">
           Noun Project
         </a>
         <br />
-        drag drop by Yogi Aprelliyanto from{" "}
-        <a href="https://thenounproject.com/browse/icons/term/drag-drop/" target="_blank" title="drag drop Icons">
+        drag drop by Yogi Aprelliyanto from{' '}
+        <a
+          href="https://thenounproject.com/browse/icons/term/drag-drop/"
+          target="_blank"
+          title="drag drop Icons">
           Noun Project
         </a>
       </p>

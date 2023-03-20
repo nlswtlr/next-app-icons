@@ -1,11 +1,12 @@
-import PlausibleProvider from "next-plausible";
+import PlausibleProvider from 'next-plausible';
 
-import "@/styles/globals.css";
-import "@/components/Metadata/prism.css";
+import '@/styles/globals.css';
+import '@/components/Metadata/prism.css';
 
 const generics = {
-  title: "Next.js App Icon Generator",
-  description: "Generate favicons/app icons with auto generated metadata output for your Next.js apps v13.2 and newer.",
+  title: 'Next.js App Icon Generator',
+  description:
+    'Generate favicons/app icons with auto generated metadata output for your Next.js apps v13.2 and newer.',
 };
 
 export const metadata = {
@@ -16,45 +17,55 @@ export const metadata = {
     description: generics.description,
     images: [
       {
-        url: "https://next-app-icons.vercel.app/assets/images/share/og-share.jpg",
+        url: 'https://next-app-icons.vercel.app/assets/images/share/og-share.jpg',
         width: 1200,
         height: 630,
       },
     ],
-    type: "website",
+    type: 'website',
   },
   twitter: {
-    card: "summary_large_image",
-    creator: "@nlswtlr",
-    images: [{ url: "https://next-app-icons.vercel.app/assets/images/share/og-share.jpg", width: 1200, height: 630 }],
+    card: 'summary_large_image',
+    creator: '@nlswtlr',
+    images: [
+      {
+        url: 'https://next-app-icons.vercel.app/assets/images/share/og-share.jpg',
+        width: 1200,
+        height: 630,
+      },
+    ],
   },
   icons: {
     shortcut: {
-      url: "/favicon.ico",
+      url: '/favicon.ico',
     },
     icon: [
       {
-        url: "/favicon-16x16.png",
-        sizes: "16x16",
-        type: "image/png",
+        url: '/favicon-16x16.png',
+        sizes: '16x16',
+        type: 'image/png',
       },
       {
-        url: "/favicon-32x32.png",
-        sizes: "32x32",
-        type: "image/png",
+        url: '/favicon-32x32.png',
+        sizes: '32x32',
+        type: 'image/png',
       },
     ],
     apple: [
       {
-        url: "/apple-touch-icon.png",
-        sizes: "180x180",
+        url: '/apple-touch-icon.png',
+        sizes: '180x180',
       },
     ],
   },
-  manifest: "/manifest.webmanifest",
+  manifest: '/manifest.webmanifest',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <head>

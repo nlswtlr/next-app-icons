@@ -1,4 +1,4 @@
-import { twMerge } from "tailwind-merge";
+import { twMerge } from 'tailwind-merge';
 
 type ButtonProps = {
   children: React.ReactNode;
@@ -9,7 +9,7 @@ type ButtonProps = {
 
 const Button = ({ children, href, className, ...props }: ButtonProps) => {
   const classNames =
-    "inline-block bg-ternary hover:bg-secondary active:bg-primary transition border rounded px-6 py-2 text-sm";
+    'inline-block bg-ternary hover:bg-secondary active:bg-primary transition border rounded px-6 py-2 text-sm';
 
   return href ? (
     <a {...props} href={href} className={twMerge(classNames, className)}>

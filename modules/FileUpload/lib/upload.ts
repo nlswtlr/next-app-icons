@@ -1,19 +1,20 @@
-import { Dispatch } from "react";
-import type { Metadata } from "next";
+import { Dispatch } from 'react';
+import type { Metadata } from 'next';
 
-import { ReducerActions } from "./reducer";
-import { defaultValues } from "@/modules/Form";
+import { ReducerActions } from './reducer';
+import { defaultValues } from '@/modules/Form';
 
 type SuccessResponse = { success: boolean; file: string; metadata: Metadata };
 type ErrorResponse = { errorCode: string; errors?: string[] };
 
 const errorCodes: Record<string, string> = {
-  "001":
-    "Oops, something went wrong while generating the app icons. Please try again later. The error will be logged on the server and hopefully soon be resolved.",
-  "004": "The filetype is not allowed. Please upload a PNG, JPG or GIF file.",
-  "005": "The auth token expired. Please reload the page and upload your image again.",
-  "006": "Please upload only images smaller than 1MB.",
-  "007": "Please correct your form inputs and submit again:",
+  '001':
+    'Oops, something went wrong while generating the app icons. Please try again later. The error will be logged on the server and hopefully soon be resolved.',
+  '004': 'The filetype is not allowed. Please upload a PNG, JPG or GIF file.',
+  '005':
+    'The auth token expired. Please reload the page and upload your image again.',
+  '006': 'Please upload only images smaller than 1MB.',
+  '007': 'Please correct your form inputs and submit again:',
 };
 
 export default async function upload(
@@ -22,41 +23,52 @@ export default async function upload(
   dispatch: Dispatch<ReducerActions>
 ) {
   try {
-    dispatch({ type: "SET_MESSAGE", payload: { type: "error", text: "" } });
-    dispatch({ type: "SET_UPLOAD_STATE", payload: true });
+    dispatch({ type: 'SET_MESSAGE', payload: { type: 'error', text: '' } });
+    dispatch({ type: 'SET_UPLOAD_STATE', payload: true });
 
-    const tokenEl = document.querySelector<HTMLSpanElement>("[data-file-hash]");
+    const tokenEl = document.querySelector<HTMLSpanElement>('[data-file-hash]');
     const formData = new FormData();
 
-    formData.append("icon", iconFile);
-    formData.append("formData", JSON.stringify(formValues));
+    formData.append('icon', iconFile);
+    formData.append('formData', JSON.stringify(formValues));
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_PATH}/generate`, {
-      method: "POST",
-      body: formData,
-      headers: {
-        "X-Auth": tokenEl?.dataset.fileHash || "",
-      },
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_PATH}/generate`,
+      {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'X-Auth': tokenEl?.dataset.fileHash || '',
+        },
+      }
+    );
     const respData: SuccessResponse | ErrorResponse = await res.json();
 
-    dispatch({ type: "SET_UPLOAD_STATE", payload: false });
+    dispatch({ type: 'SET_UPLOAD_STATE', payload: false });
 
-    if ("errorCode" in respData) {
+    if ('errorCode' in respData) {
       const errorMsg = errorCodes[respData.errorCode];
       return dispatch({
-        type: "SET_MESSAGE",
+        type: 'SET_MESSAGE',
         payload: {
-          type: "error",
-          text: `${errorMsg}${respData.errors ? respData.errors.join(" ") : ""}` || errorCodes["001"],
+          type: 'error',
+          text:
+            `${errorMsg}${respData.errors ? respData.errors.join(' ') : ''}` ||
+            errorCodes['001'],
         },
       });
     }
 
-    dispatch({ type: "SET_METADATA", payload: respData.metadata });
-    dispatch({ type: "SET_FILE_PATH", payload: respData.file });
+    dispatch({ type: 'SET_METADATA', payload: respData.metadata });
+    dispatch({ type: 'SET_FILE_PATH', payload: respData.file });
   } catch (e) {
-    dispatch({ type: "SET_UPLOAD_STATE", payload: false });
-    dispatch({ type: "SET_MESSAGE", payload: { type: "error", text: "Ok, something broke in the frontend here." } });
+    dispatch({ type: 'SET_UPLOAD_STATE', payload: false });
+    dispatch({
+      type: 'SET_MESSAGE',
+      payload: {
+        type: 'error',
+        text: 'Ok, something broke in the frontend here.',
+      },
+    });
   }
 }

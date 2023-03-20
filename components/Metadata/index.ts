@@ -1,4 +1,4 @@
-import Metadata from "./Metadata";
+import Metadata from './Metadata';
 
-export * from "./Metadata";
+export * from './Metadata';
 export default Metadata;
