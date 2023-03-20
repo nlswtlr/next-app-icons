@@ -16,7 +16,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
     <div className={className}>
       <input
         className={twMerge(
-          "border border-slate-900 w-full rounded bg-slate-500 px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-emerald-500"
+          "border border-slate-900 w-full rounded bg-slate-500 px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-slate-200"
         )}
         {...props}
         placeholder={placeholder}

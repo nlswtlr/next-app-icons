@@ -48,7 +48,7 @@ const FileUpload = ({}: FileUploadProps) => {
   ) : (
     <>
       <label
-        className={`flex justify-center items-center w-full mt-10 mb-4 p-6 border ${
+        className={`flex justify-center items-center w-full mt-10 mb-8 p-6 border ${
           dragOver ? "border-solid" : "border-dashed"
         } rounded-md ease-in-out transition-boder duration-300`}
         onDragEnter={handleDragEnter}
