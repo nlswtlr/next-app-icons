@@ -2,9 +2,10 @@ import { Dispatch } from "react";
 import type { Metadata } from "next";
 
 import { ReducerActions } from "./reducer";
+import { defaultValues } from "@/modules/Form";
 
 type SuccessResponse = { success: boolean; file: string; metadata: Metadata };
-type ErrorResponse = { errorCode: string };
+type ErrorResponse = { errorCode: string; errors?: string[] };
 
 const errorCodes: Record<string, string> = {
   "001":
@@ -12,9 +13,14 @@ const errorCodes: Record<string, string> = {
   "004": "The filetype is not allowed. Please upload a PNG, JPG or GIF file.",
   "005": "The auth token expired. Please reload the page and upload your image again.",
   "006": "Please upload only images smaller than 1MB.",
+  "007": "Please correct your form inputs and submit again:",
 };
 
-export default async function upload(iconFile: File, dispatch: Dispatch<ReducerActions>) {
+export default async function upload(
+  iconFile: File,
+  formValues: typeof defaultValues,
+  dispatch: Dispatch<ReducerActions>
+) {
   try {
     dispatch({ type: "SET_MESSAGE", payload: { type: "error", text: "" } });
     dispatch({ type: "SET_UPLOAD_STATE", payload: true });
@@ -23,6 +29,7 @@ export default async function upload(iconFile: File, dispatch: Dispatch<ReducerA
     const formData = new FormData();
 
     formData.append("icon", iconFile);
+    formData.append("formData", JSON.stringify(formValues));
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_PATH}/generate`, {
       method: "POST",
@@ -37,7 +44,13 @@ export default async function upload(iconFile: File, dispatch: Dispatch<ReducerA
 
     if ("errorCode" in respData) {
       const errorMsg = errorCodes[respData.errorCode];
-      return dispatch({ type: "SET_MESSAGE", payload: { type: "error", text: errorMsg || errorCodes["001"] } });
+      return dispatch({
+        type: "SET_MESSAGE",
+        payload: {
+          type: "error",
+          text: `${errorMsg}${respData.errors ? respData.errors.join(" ") : ""}` || errorCodes["001"],
+        },
+      });
     }
 
     dispatch({ type: "SET_METADATA", payload: respData.metadata });
