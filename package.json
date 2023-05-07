@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write ."
+    "format": "prettier --write . --loglevel warn"
   },
   "dependencies": {
     "jsonwebtoken": "^9.0.0",
