@@ -18,7 +18,7 @@ export const metadata = {
     description: generics.description,
     images: [
       {
-        url: '/assets/images/share/og-share.jpg',
+        url: '/assets/images/share/og-share.jpg?v=070523',
         width: 1200,
         height: 630,
       },
@@ -30,7 +30,7 @@ export const metadata = {
     creator: '@nlswtlr',
     images: [
       {
-        url: '/assets/images/share/og-share.jpg',
+        url: '/assets/images/share/og-share.jpg?v=070523',
         width: 1200,
         height: 630,
       },
