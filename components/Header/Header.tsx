@@ -3,7 +3,7 @@ import { sign } from 'jsonwebtoken';
 import Headline from './components/Headline';
 
 const Header = async () => {
-  fetch('https://google.com', { cache: 'no-store' });
+  await fetch('https://google.com', { cache: 'no-store' });
   const token = sign(
     { data: 'this is awesome' },
     process.env.JWT_SECRET || '',
