@@ -1,9 +1,6 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+import { NextResponse } from 'next/server';
+ 
+export async function GET() {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_PATH}/cleanup`,
@@ -15,10 +12,10 @@ export default async function handler(
     const data: { success: boolean } = await response.json();
 
     if (data.success) {
-      return res.status(200).json(data);
+      return NextResponse.json(data);
     }
-    res.status(400).end({ error: 'error while running cron' });
+    NextResponse.json({ error: 'error while running cron' });
   } catch (err: any) {
-    res.status(500).end({ error: err.message });
+    NextResponse.json({ error: err.message });
   }
 }
