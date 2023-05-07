@@ -10,6 +10,7 @@ const generics = {
 };
 
 export const metadata = {
+  metadataBase: new URL('https://next-app-icons.vercel.app'),
   title: generics.title,
   description: generics.description,
   openGraph: {
@@ -17,7 +18,7 @@ export const metadata = {
     description: generics.description,
     images: [
       {
-        url: 'https://next-app-icons.vercel.app/assets/images/share/og-share.jpg',
+        url: '/assets/images/share/og-share.jpg',
         width: 1200,
         height: 630,
       },
@@ -29,7 +30,7 @@ export const metadata = {
     creator: '@nlswtlr',
     images: [
       {
-        url: 'https://next-app-icons.vercel.app/assets/images/share/og-share.jpg',
+        url: '/assets/images/share/og-share.jpg',
         width: 1200,
         height: 630,
       },
